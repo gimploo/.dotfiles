@@ -16,25 +16,27 @@ function check_os {
 function setup_workspace_for_wsl {
 
     echo [*] Setting up sym links ...
-    ln -s ./wsl/.bashrc ~/.
-    ln -s ./wsl/.bash_aliases ~/.
-    ln -s ./wsl/.tmux.conf ~/.
-    ln -s ./wsl/.gitconfig ~/.
-    rm ~/.config/nvim/init.vim && ln -s ./wsl/init.vim ~/.config/nvim/
-    ln -s ./wsl/syntax ~/.config/nvim/
+    ln -s ~/.dotfiles/wsl/.bashrc ~/.
+    ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
+    ln -s ~/.dotfiles/wsl/.tmux.conf ~/.
+    ln -s ~/.dotfiles/wsl/.gitconfig ~/.
+    rm ~/.config/nvim/init.vim && ln -s ~/.dotfiles/wsl/init.vim ~/.config/nvim/
+    ln -s ~/.dotfiles/wsl/syntax ~/.config/nvim/
     echo [!] All sym-links are setup!
 
 }
 
 function main {
     
-    sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install $PROGRAMS
+    sudo apt-get update -y 2> /dev/null && sudo apt-get upgrade -y 2> /dev/null && echo "[!] System updated and upgraded!"
+
+    sudo apt-get install $PROGRAMS
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
         exit 1
     else
-        echo "[!] System completely updated - upgraded and all programs are installed"
+        echo "[!] All programs are installed"
     fi
 
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
