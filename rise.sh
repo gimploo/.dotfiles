@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl gcc make tmux neovim npm tldr clangd python3 pip"
+PROGRAMS="curl gcc make tmux neovim node npm tldr clangd python3 pip"
 
 function check_os {
 
@@ -40,7 +40,7 @@ function main {
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    curl -sL install-node.now.sh/lts | bash
+    sudo curl -sL install-node.now.sh/lts | bash
     sudo pip install jedi 
 
 
