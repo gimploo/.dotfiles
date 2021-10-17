@@ -1,0 +1,7 @@
+[user]
+	email = 41667550+gimploo@users.noreply.github.com
+	name = gimploo
+[credential]
+	helper = store
+[core]
+	editor = nvim
