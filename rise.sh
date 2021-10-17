@@ -29,7 +29,7 @@ function setup_workspace_for_wsl {
 function main {
     
     sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install $PROGRAMS
-    if [ $? -neq 0 ]
+    if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
         exit 1
