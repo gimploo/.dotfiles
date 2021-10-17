@@ -16,6 +16,10 @@ function check_os {
 function setup_workspace_for_wsl {
 
     echo [*] Setting up sym links ...
+
+    mkdir ~/old_setup
+    mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
+
     ln -s ~/.dotfiles/wsl/.bashrc ~/.
     ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
     ln -s ~/.dotfiles/wsl/.tmux.conf ~/.
