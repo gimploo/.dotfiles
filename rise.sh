@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl gcc make tmux neovim npm nodejs-legacy tldr clangd python3 pip"
+PROGRAMS="curl gcc make tmux neovim npm tldr clangd python3 pip"
 
 function check_os {
 
