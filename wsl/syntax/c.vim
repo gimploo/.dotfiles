@@ -247,18 +247,18 @@ syn match cUserFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimi
 
 " Custom C types
 syn keyword cType u8 u16 u32 u64 i8 i16 i32 i64 f32 f64
-syn keyword cType bool 
-syn match   cType /[a-zA-Z_][a-zA-Z0-9_]*_[t][; ]/
+syn keyword cType bool str_t
+syn match   cType /[a-zA-Z_][a-zA-Z0-9_]*_[t][; ),]/
 
 " Booleans
 syn keyword cBoolean true false
 
 " Links
+hi def link cType Type
 hi def link cOperator Operator
 hi def link cFunction Function
 hi def link cIdentifier Identifier
 hi def link cDelimiter Delimiter
-hi def link cType Type
 hi def link cBoolean Boolean
 hi def link cUserFunctionPointer cFunction
 hi def link cDefined cDefine
