@@ -1,0 +1,5 @@
+[user]
+	email = gokulkrishnan949@gmail.com
+	name = gimploo
+[credential]
+	helper = cache --timeout=600

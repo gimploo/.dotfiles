@@ -1,0 +1,5 @@
+alias open='xdg-open'
+alias clip='xclip -sel clip'
+alias dumb='cd ~/Documents/projects/'
+alias job='cd ~/Documents/job/torc/canada_ecom/;clear'
+alias cwd='pwd | xclip -sel clip && echo "copied to clipboard"'
