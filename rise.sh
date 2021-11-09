@@ -30,6 +30,23 @@ function setup_workspace_for_wsl {
 
 }
 
+function setup_workspace_for_linux {
+    echo [*] Setting up sym links ...
+
+    mkdir ~/old_setup
+    mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
+
+    ln -s ~/.dotfiles/linux/.bashrc ~/.
+    ln -s ~/.dotfiles/linux/.bash_aliases ~/.
+    ln -s ~/.dotfiles/linux/.tmux.conf ~/.
+    ln -s ~/.dotfiles/linux/.gitconfig ~/.
+    rm ~/.config/nvim/init.vim && ln -s ~/.dotfiles/linux/init.vim ~/.config/nvim/
+    ln -s ~/.dotfiles/linux/syntax ~/.config/nvim/
+    ln -s ~/.dotfiles/linux/audio-fix.sh ~/audio-fix.sh
+    ln -s ~/.dotfiles/linux/run-on-startup.sh ~/run-on-startup.sh
+    echo [!] All sym-links are setup!
+}
+
 function main {
     
     sudo apt-get update -y 2> /dev/null && sudo apt-get upgrade -y 2> /dev/null && echo "[!] System updated and upgraded!"
@@ -58,7 +75,7 @@ function main {
         echo [*] Setting up workspace for wsl ...
         setup_workspace_for_wsl
     else
-        echo "TODO: setup for linux"
+        setup_workspace_for_linux
     fi
 
     echo [!] Setup finished!
