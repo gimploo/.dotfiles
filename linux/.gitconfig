@@ -1,5 +1,10 @@
 [user]
-	email = gokulkrishnan949@gmail.com
+	email = 41667550+gimploo@users.noreply.github.com
 	name = gimploo
 [credential]
-	helper = cache --timeout=600
+	helper = cache
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
