@@ -225,6 +225,8 @@ syn keyword	cAnsiName	and bitor not_eq xor
 syn keyword	cAnsiName	and_eq compl or xor_eq
 syn keyword	cAnsiName	bitand not or_eq
 
+hi def link cAnsiFunction cFunction
+hi def link cAnsiName cIdentifier
 
 " Operators
 syn match cOperator	"\(<<\|>>\|[-+*/%&^|<>!=]\)="
@@ -233,34 +235,31 @@ syn match cOperator	"[.!~*&%<>^|=,+-]"
 syn match cOperator	"/[^/*=]"me=e-1
 syn match cOperator	"/$"
 syn match cOperator "&&\|||"
-"syn match cOperator	/[][]/ <- this gives the array brackets a color
-
+syn match cOperator	"[][]"
 
 " Preprocs
 syn keyword cDefined defined contained containedin=cDefine
+hi def link cDefined cDefine
 
 " Functions
 syn match cUserFunction "\<\h\w*\>\(\s\|\n\)*("me=e-1 contains=cType,cDelimiter,cDefine
 syn match cUserFunctionPointer "(\s*\*\s*\h\w*\s*)\(\s\|\n\)*(" contains=cDelimiter,cOperator
 
 "hi def link cUserFunction cFunction
+hi def link cUserFunctionPointer cFunction
 
 " Custom C types
-syn keyword cType u8 u16 u32 u64 i8 i16 i32 i64 f32 f64
-syn keyword cType bool str_t
-syn match   cType /[a-zA-Z_][a-zA-Z0-9_]*_[t][; ),]/
+syn keyword cType u8 u32 u64 i8 i32 i64 u16 i16 f32 f64
+syn match cType "\<[a-zA-Z_][a-zA-Z0-9_]*_[t]\>"
 
 " Booleans
 syn keyword cBoolean true false
 
 " Links
-hi def link cType Type
-hi def link cOperator Operator
 hi def link cFunction Function
 hi def link cIdentifier Identifier
 hi def link cDelimiter Delimiter
+" foldmethod=syntax fix, courtesy of Ivan Freitas
 hi def link cBoolean Boolean
-hi def link cUserFunctionPointer cFunction
-hi def link cDefined cDefine
-hi def link cAnsiFunction cFunction
-hi def link cAnsiName cIdentifier
+
+
