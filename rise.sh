@@ -66,6 +66,8 @@ function main {
     sudo curl -sL install-node.now.sh/lts | bash
     sudo pip install jedi 
 
+    cd ~/.config/coc/extensions/node_modules/coc-ccls
+    ln -s node_modules/ws/lib lib
 
     check_os
 
