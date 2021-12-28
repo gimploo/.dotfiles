@@ -7,6 +7,9 @@ alias cwd='pwd|clip.exe'
 alias gamer='cd ~/Documents/gameDev/'
 alias dumb='cd ~/Documents/dumb-projects'
 
+# Removes trailing \r characters in win files
+win2unix() { tr -d '\15\32' < $1 > $2 && echo "Successfully created $2 file!" || echo "Failed"; }
+
 # Calling windows executables
 alias wordpad='/mnt/c/Program\ Files/Windows\ NT/Accessories/wordpad.exe'
 alias love='love.exe'
