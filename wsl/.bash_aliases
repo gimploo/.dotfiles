@@ -28,6 +28,6 @@ alias clip='clip.exe'
 alias Hard='cmd /c "C:\Users\Gokul\OneDrive\Documents\tutorials\coursera\Build a Modern Computer from first principles\nand2tetris\tools\HardwareSimulator.bat" '
 
 # Compiling c files for windows x86-64 bit
-alias cl='cmd.exe /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64'
+alias cl='cmd.exe /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" x64'
 #alias vscmd='cmd.exe /k "C:\Users\Gokul\OneDrive\Documents\gameDev\HandmadeHero\misc\shell.bat" && cls'
 
