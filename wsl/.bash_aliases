@@ -5,7 +5,7 @@ alias asiet='cd ~/Documents/ASIET/year2/; clear'
 alias course='cd ~/Documents/tutorials/; clear'
 alias cwd='pwd|clip.exe'
 alias gamer='cd ~/Documents/gameDev/'
-alias dumb='cd ~/Documents/dumb-projects'
+alias projects='cd ~/Documents/projects'
 
 # Removes trailing \r characters in win files
 win2unix() { tr -d '\15\32' < $1 > $2 && echo "Successfully created $2 file!" || echo "Failed"; }
@@ -23,6 +23,8 @@ alias open='explorer.exe'
 alias notepad='notepad.exe'
 alias token='cat ~/.git/.git_token | clip.exe && echo "git token copied to clipboard"'
 alias clip='clip.exe'
+
+alias forge='wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .'
 
 # Hardware simulator 
 alias Hard='cmd /c "C:\Users\Gokul\OneDrive\Documents\tutorials\coursera\Build a Modern Computer from first principles\nand2tetris\tools\HardwareSimulator.bat" '
