@@ -128,9 +128,6 @@ stty -ixon
 # including .dircolors file 
 [[ -e $HOME/.dircolors ]] && eval "`dircolors --sh $HOME/.dircolors`"
 
-# running cht.sh tab completion
-~/.bash.d/cht.sh
-
 # Start tmux as defualt
 #if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
         #tmux attach -t default || tmux new -s default
@@ -140,4 +137,3 @@ reset-cursor() {
   printf '\e[3 q' # resets the cursor when exiting out of vim
 }
 export PS1="$(reset-cursor)$PS1"
-
