@@ -139,8 +139,8 @@ nnoremap <silent> <leader>- :vertical resize -5<CR>
 " Install extensions when not  
 let g:coc_global_extensions = [
             \ 'coc-java',
-            "\ 'coc-python',
-            \ 'coc-clangd',
+            \ 'coc-python',
+            \ 'coc-ccls',
             \ 'coc-json',
             \ 'coc-sh',
             \]

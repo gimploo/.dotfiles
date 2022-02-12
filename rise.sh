@@ -49,9 +49,10 @@ function setup_workspace_for_linux {
 
 function main {
     
-    sudo apt-get update -y 2> /dev/null && sudo apt-get upgrade -y 2> /dev/null && echo "[!] System updated and upgraded!"
+    sudo su
+    apt-get update -y 3> /dev/null && apt-get upgrade -y 3> /dev/null && echo "[!] System updated and upgraded!"
 
-    sudo apt-get install $PROGRAMS
+    apt-get install $PROGRAMS 3> /dev/null
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
@@ -63,11 +64,15 @@ function main {
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    sudo curl -sL install-node.now.sh/lts | bash
     sudo pip install jedi 
+
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    source ~/.bashrc
+    nvm install node
 
     cd ~/.config/coc/extensions/node_modules/coc-ccls
     ln -s node_modules/ws/lib lib
+    cd -
 
     check_os
 
