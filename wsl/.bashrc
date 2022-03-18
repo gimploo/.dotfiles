@@ -141,3 +141,9 @@ export PS1="$(reset-cursor)$PS1"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# open in home directory than in system32 directory
+if [[ $(pwd) == /mnt/c/Windows/System32 ]]
+then
+    cd ~
+fi
