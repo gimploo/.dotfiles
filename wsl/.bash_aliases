@@ -33,3 +33,7 @@ alias Hard='cmd /c "C:\Users\Gokul\OneDrive\Documents\tutorials\coursera\Build a
 alias cl='cmd.exe /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" x64'
 #alias vscmd='cmd.exe /k "C:\Users\Gokul\OneDrive\Documents\gameDev\HandmadeHero\misc\shell.bat" && cls'
 
+#Rust 
+alias rustc='rustc.exe'
+alias rustup='rustup.exe'
+alias cargo='cargo.exe'
