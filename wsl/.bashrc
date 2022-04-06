@@ -143,7 +143,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # open in home directory than in system32 directory
-if [[ $(pwd) == /mnt/c/Windows/System32 ]]
+if [[ $(pwd) == /mnt/c/Windows/System32 || $(pwd) = /mnt/c/Windows/system32 ]]
 then
-    cd ~
+    cd 
 fi

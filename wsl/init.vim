@@ -72,6 +72,7 @@ Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'suan/vim-instant-markdown', {'for':'markdown'}
 
 Plug 'Eric-Song-Nop/vim-glslx'
+Plug 'kqito/vim-easy-replace'
 
 Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'mbbill/undotree'
