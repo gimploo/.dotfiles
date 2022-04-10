@@ -142,6 +142,7 @@ let g:coc_global_extensions = [
             \ 'coc-java',
             \ 'coc-python',
             \ 'coc-ccls',
+            "\ 'coc-clangd',
             \ 'coc-json',
             \ 'coc-sh',
             \]

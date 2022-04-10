@@ -44,6 +44,7 @@ function setup_workspace_for_linux {
     ln -s ~/.dotfiles/linux/syntax ~/.config/nvim/
     ln -s ~/.dotfiles/linux/audio-fix.sh ~/audio-fix.sh
     ln -s ~/.dotfiles/linux/run-on-startup.sh ~/run-on-startup.sh
+
     echo [!] All sym-links are setup!
 }
 
@@ -72,6 +73,9 @@ function main {
     cd ~/.config/coc/extensions/node_modules/coc-ccls
     ln -s node_modules/ws/lib lib
     cd -
+
+    # ccls setup (common to both os nvim)
+    ln -s ~/.dotfiles/wsl/coc-settings.json ~/.config/nvim/.
 
     check_os
 
