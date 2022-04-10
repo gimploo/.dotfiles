@@ -49,10 +49,9 @@ function setup_workspace_for_linux {
 
 function main {
     
-    sudo su
-    apt-get update -y 3> /dev/null && apt-get upgrade -y 3> /dev/null && echo "[!] System updated and upgraded!"
+    sudo apt-get update -y 3> /dev/null && sudo apt-get upgrade -y 3> /dev/null && echo "[!] System updated and upgraded!"
 
-    apt-get install $PROGRAMS 3> /dev/null
+    sudo apt-get install $PROGRAMS 3> /dev/null
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
