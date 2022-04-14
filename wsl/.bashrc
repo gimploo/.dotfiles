@@ -142,6 +142,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# setup neovim (latest build)
+export PATH="~/neovim/build/bin:$PATH"
+
 # open in home directory than in system32 directory
 if [[ $(pwd) == /mnt/c/Windows/System32 || $(pwd) = /mnt/c/Windows/system32 ]]
 then

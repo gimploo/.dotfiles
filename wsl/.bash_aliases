@@ -37,3 +37,6 @@ alias cl='cmd.exe /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC
 alias rustc='rustc.exe'
 alias rustup='rustup.exe'
 alias cargo='cargo.exe'
+
+#nvim
+alias vi='nvim'

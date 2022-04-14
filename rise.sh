@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl gcc make tmux neovim npm tldr clangd python3 pip"
+PROGRAMS="curl gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip"
 
 function check_os {
 
@@ -61,21 +61,19 @@ function main {
         echo "[!] All programs are installed"
     fi
 
+    # Latest neovim version
+    cd ~ && git clone https://github.com/neovim/neovim
+    cd neovim && sudo make install || echo "[!] FALIED TO SETUP NEOVIM"
+
+    # setup lua folder for neovim
+    ln -s ~/.dotfiles/common/lua ~/.config/nvim/
+
+
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     sudo pip install jedi 
 
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source ~/.bashrc
-    nvm install node
-
-    cd ~/.config/coc/extensions/node_modules/coc-ccls
-    ln -s node_modules/ws/lib lib
-    cd -
-
-    # ccls setup (common to both os nvim)
-    ln -s ~/.dotfiles/wsl/coc-settings.json ~/.config/nvim/.
 
     check_os
 

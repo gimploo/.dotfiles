@@ -68,25 +68,32 @@ Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/vim-tomorrow-theme'
 
-Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'suan/vim-instant-markdown', {'for':'markdown'}
 
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
 Plug 'Eric-Song-Nop/vim-glslx'
-Plug 'kqito/vim-easy-replace'
 
 Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'mbbill/undotree'
 Plug 'scrooloose/nerdcommenter'
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
-" fzf.vim plugin
-map s :Files<CR>
 
 "  Glsl : setting color scheme
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glslx
@@ -137,24 +144,14 @@ nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <silent> <leader>= :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 
-" Install extensions when not  
-let g:coc_global_extensions = [
-            \ 'coc-java',
-            \ 'coc-python',
-            \ 'coc-ccls',
-            "\ 'coc-clangd',
-            \ 'coc-json',
-            \ 'coc-sh',
-            \]
-
 "-----------------------------------------------------------------------------
 " Nerdtree
 "-----------------------------------------------------------------------------
 
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <leader><C-n> :NERDTree<CR>
+nnoremap <leader><C-t> :NERDTreeToggle<CR>
+nnoremap <leader><C-f> :NERDTreeFind<CR>
 
 " Start NERDTree when Vim is opened and leave the cursor in it.
 autocmd VimEnter * NERDTree
@@ -251,42 +248,9 @@ let g:airline_symbols.maxlinenr = ' '
 let g:airline_symbols.dirty=''
 
 
-" -----------------------------------------------------------------------------
-" coc.nvim
-" -----------------------------------------------------------------------------
-source $HOME/.config/nvim/plugged/coc.nvim/plugin/coc.vim
+" Includes the lua/lsp.lua file
+lua require('lspsetup')
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" GoTo code navigation.
-nmap <silent> <leader>gd <plug>(coc-definition)
-nmap <silent> <leader>gy <plug>(coc-type-definition)
-nmap <silent> <leader>gi <plug>(coc-implementation)
-nmap <silent> <leader>gr <plug>(coc-references)
-
-" Jump to errors
-nmap [g <plug>(coc-diagnostic-prev)
-nmap ]g <plug>(coc-diagnostic-next)
-
-" Restart coc server
-nnoremap <leader>r :CocRestart<CR>
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
+"lua require('telescope')
+"fzf.vim plugin
+nnoremap <leader>s :Files<CR>
