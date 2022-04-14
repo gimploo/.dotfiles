@@ -38,10 +38,10 @@ cmp.setup({
        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      ['<Up>'] = cmp.mapping.scroll_docs(-4),
-      ['<Down>'] = cmp.mapping.scroll_docs(4),
-      ['<Tab>'] = cmp.mapping.complete(),
-      ['<Esc>'] = cmp.mapping.abort(),
+      ['<C-Up>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-Down>'] = cmp.mapping.scroll_docs(4),
+      ['<leader><Tab>'] = cmp.mapping.complete(),
+      ['<leader><Esc>'] = cmp.mapping.abort(),
       ['<Enter>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
