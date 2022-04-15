@@ -59,6 +59,7 @@ let base16colorspace=256
 
 " Custom syntax highlight for C
 au Syntax c	source $VIMRUNTIME/syntax/c.vim
+let g:c_syntax_for_h = 1 " All header files are treated as only C files with this
 
 " Pluggins 
 call plug#begin('~/.config/nvim/plugged')
