@@ -150,9 +150,9 @@ nnoremap <silent> <leader>- :vertical resize -5<CR>
 "-----------------------------------------------------------------------------
 
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader><C-n> :NERDTree<CR>
-nnoremap <leader><C-t> :NERDTreeToggle<CR>
-nnoremap <leader><C-f> :NERDTreeFind<CR>
+"nnoremap <leader><> :NERDTree<CR>
+nnoremap <leader><t> :NERDTreeToggle<CR>
+nnoremap <leader><f> :NERDTreeFind<CR>
 
 " Start NERDTree when Vim is opened and leave the cursor in it.
 autocmd VimEnter * NERDTree
