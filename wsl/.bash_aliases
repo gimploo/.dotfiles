@@ -40,3 +40,9 @@ alias cargo='cargo.exe'
 
 #nvim
 alias vi='nvim'
+
+#npm
+alias npm='cmd /c npm'
+
+#python3
+alias python3='cmd /c python'
