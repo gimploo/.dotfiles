@@ -24,7 +24,32 @@ alias notepad='notepad.exe'
 alias token='cat ~/.git/.git_token | clip.exe && echo "git token copied to clipboard"'
 alias clip='clip.exe'
 
-alias forge='wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .'
+function forge {
+
+    if [ "$1" == "unix" ] 
+    then
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null || cp ~/Documents/projects/forge/build.sh .
+        chmod +x build.sh
+        return 0
+    fi
+
+    if [ "$1" == "win" ] 
+    then
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .
+        return 0
+    fi
+
+    echo -e "
+    Usage: forge <tag>
+
+    Downloads the forge build script from github
+
+    Types of tags
+    -------------
+        win     - downloads the build.bat script
+        unix    - downloads the build.sh script
+    "
+}
 
 # Hardware simulator 
 alias Hard='cmd /c "C:\Users\Gokul\OneDrive\Documents\tutorials\coursera\Build a Modern Computer from first principles\nand2tetris\tools\HardwareSimulator.bat" '
