@@ -5,6 +5,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 --
 
 require 'lspconfig'.clangd.setup{
+    arguments = {"-std=c11"},
     capabilities = capabilities,
     filetypes = {"c", "cpp"},
     on_attach = function() 
