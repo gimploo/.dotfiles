@@ -39,6 +39,12 @@ function forge {
         return 0
     fi
 
+    if [ "$1" == "run" ]
+    then
+        cmd.exe /c '' && cmd.exe /c build run || ./build.sh
+        return 0
+    fi
+
     echo -e "
     Usage: forge <tag>
 
@@ -48,6 +54,7 @@ function forge {
     -------------
         win     - downloads the build.bat script
         unix    - downloads the build.sh script
+        run     - runs the script
     "
 }
 
