@@ -24,46 +24,11 @@ alias notepad='notepad.exe'
 alias token='cat ~/.git/.git_token | clip.exe && echo "git token copied to clipboard"'
 alias clip='clip.exe'
 
-function forge {
-
-    if [ "$1" == "unix" ] 
-    then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null || cp ~/Documents/projects/forge/build.sh .
-        chmod +x build.sh
-        return 0
-    fi
-
-    if [ "$1" == "win" ] 
-    then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .
-        return 0
-    fi
-
-    if [ "$1" == "run" ]
-    then
-        cmd.exe /c '' && cmd.exe /c build run || ./build.sh
-        return 0
-    fi
-
-    echo -e "
-    Usage: forge <tag>
-
-    Downloads the forge build script from github
-
-    Types of tags
-    -------------
-        win     - downloads the build.bat script
-        unix    - downloads the build.sh script
-        run     - runs the script
-    "
-}
-
 # Hardware simulator 
 alias Hard='cmd /c "C:\Users\Gokul\OneDrive\Documents\tutorials\coursera\Build a Modern Computer from first principles\nand2tetris\tools\HardwareSimulator.bat" '
 
-# Compiling c files for windows x86-64 bit
+# Microsoft visual studio C/C++ compiler
 alias cl='cmd.exe /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat" x64'
-#alias vscmd='cmd.exe /k "C:\Users\Gokul\OneDrive\Documents\gameDev\HandmadeHero\misc\shell.bat" && cls'
 
 #Rust 
 alias rustc='rustc.exe'
@@ -78,3 +43,6 @@ alias npm='cmd /c npm'
 
 #python3
 alias python3='cmd /c python'
+
+#my tools
+alias ease='/home/gokul/Documents/projects/ease/ease.sh'
