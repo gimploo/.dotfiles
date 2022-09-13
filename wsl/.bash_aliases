@@ -46,3 +46,4 @@ alias python3='cmd /c python'
 
 #my tools
 alias ease='/home/gokul/Documents/projects/ease/ease.sh'
+alias forge='cmd.exe /c build'
