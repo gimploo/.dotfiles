@@ -46,4 +46,34 @@ alias python3='cmd /c python'
 
 #my tools
 alias ease='/home/gokul/Documents/projects/ease/ease.sh'
-alias forge='cmd.exe /c build'
+function forge {
+
+    if [ "$1" == "unix" ] 
+    then
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null || cp ~/Documents/projects/forge/build.sh .
+        chmod +x build.sh
+        return 0
+    fi
+
+    if [ "$1" == "win" ] 
+    then
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .
+        return 0
+    fi
+
+    if [ "$1" == "run" ]
+    then
+        cmd.exe /c '' && cmd.exe /c build run || ./build.sh
+        return 0
+    fi
+
+    echo -e "
+    Usage: forge <tag>
+    Downloads the forge build script from github
+    Types of tags
+    -------------
+        win     - downloads the build.bat script
+        unix    - downloads the build.sh script
+        run     - runs the script
+    "
+}
