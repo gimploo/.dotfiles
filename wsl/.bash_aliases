@@ -42,7 +42,10 @@ alias vi='nvim'
 alias npm='cmd /c npm'
 
 #python3
-alias python3='cmd /c python'
+alias python3='cmd.exe /c python'
+alias pip3='cmd.exe /c pip'
+alias pip='cmd.exe /c pip'
+alias pipenv='cmd.exe /c pipenv'
 
 #my tools
 alias ease='/home/gokul/Documents/projects/ease/ease.sh'
