@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip"
+PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip"
 
 function check_os {
 
