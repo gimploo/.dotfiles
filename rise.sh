@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip"
+PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip tree"
 
 function check_os {
 
@@ -8,8 +8,10 @@ function check_os {
     if [ $? == 0 ]
     then 
         OS="WINDOWS"
+        echo [!] WINDOWS RECOGNIZED
     else
         OS="LINUX"
+echo [!] LINUX RECOGNIZED
     fi
 }
 
@@ -19,12 +21,13 @@ function setup_workspace_for_wsl {
 
     mkdir ~/old_setup
     mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
+    rm -rf ~/.config/nvim && mkdir ~/.config/nvim
 
     ln -s ~/.dotfiles/wsl/.bashrc ~/.
     ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
     ln -s ~/.dotfiles/wsl/.tmux.conf ~/.
     ln -s ~/.dotfiles/wsl/.gitconfig ~/.
-    rm ~/.config/nvim/init.vim && ln -s ~/.dotfiles/wsl/init.vim ~/.config/nvim/
+    ln -s ~/.dotfiles/wsl/init.vim ~/.config/nvim/
     ln -s ~/.dotfiles/wsl/syntax ~/.config/nvim/
     echo [!] All sym-links are setup!
 
@@ -50,9 +53,14 @@ function setup_workspace_for_linux {
 
 function main {
     
-    sudo apt-get update -y 3> /dev/null && sudo apt-get upgrade -y 3> /dev/null && echo "[!] System updated and upgraded!"
+echo [!] SYSTEM UPDATING ...
+    sudo apt-get update -y > /dev/null && 
+echo [!] SYSTEM UPGRADING ... 
+sudo apt-get upgrade -y > /dev/null && 
+echo "[!] System updated and upgraded!"
 
-    sudo apt-get install $PROGRAMS 3> /dev/null
+echo [!] INSTALLING DEFAULT PROGRAMS ...
+    sudo apt-get install $PROGRAMS > /dev/null
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
@@ -62,18 +70,21 @@ function main {
     fi
 
     # Latest neovim version
+    if [ ! -d ~/neovim ] 
+    then
     cd ~ && git clone https://github.com/neovim/neovim
     cd neovim && sudo make install || echo "[!] FALIED TO SETUP NEOVIM"
-
+    fi
     # setup lua folder for neovim
     ln -s ~/.dotfiles/common/lua ~/.config/nvim/
 
-
+    if [ ! -d ~/.tmux/plugins/tpm ]
+then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     sudo pip install jedi 
-
+fi
 
     check_os
 
