@@ -5,7 +5,6 @@ alias asiet='cd ~/Documents/ASIET/year2/; clear'
 alias course='cd ~/Documents/tutorials/; clear'
 alias cwd='pwd|clip.exe'
 alias gamer='cd ~/Documents/gameDev/'
-alias projects='cd ~/Documents/projects'
 
 # Removes trailing \r characters in win files
 win2unix() { tr -d '\15\32' < $1 > $2 && echo "Successfully created $2 file!" || echo "Failed"; }
@@ -48,7 +47,7 @@ alias pip='cmd.exe /c pip'
 alias pipenv='cmd.exe /c pipenv'
 
 #my tools
-alias ease='/home/gokul/Documents/projects/ease/ease.sh'
+alias ease='/mnt/g/projects/ease/ease.sh'
 function forge {
 
     if [ "$1" == "unix" ] 
