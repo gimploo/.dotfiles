@@ -52,7 +52,7 @@ function forge {
 
     if [ "$1" == "unix" ] 
     then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null || cp ~/Documents/projects/forge/build.sh .
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.sh 2> /dev/null
         chmod +x build.sh
         return 0
     fi
