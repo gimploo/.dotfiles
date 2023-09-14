@@ -11,7 +11,7 @@ function check_os {
         echo [!] WINDOWS RECOGNIZED
     else
         OS="LINUX"
-echo [!] LINUX RECOGNIZED
+        echo [!] LINUX RECOGNIZED
     fi
 }
 
@@ -19,22 +19,23 @@ function setup_workspace_for_wsl {
 
     echo [*] Setting up sym links ...
 
-if [ -d ~/old_setup ]
-then
-rm -rf ~/old_setup
-fi
+    if [ -d ~/old_setup ]
+    then
+        rm -rf ~/old_setup
+    fi
+
     mkdir ~/old_setup
     mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
 
    
-if [ ! -d ~/.config ]
-then
-mkdir ~/.config
-mkdir ~/.config/nvim
-else
-rm -rf ~/.config/nvim
-mkdir ~/.config/nvim
-fi
+    if [ ! -d ~/.config ]
+    then
+        mkdir ~/.config
+        mkdir ~/.config/nvim
+    else
+        rm -rf ~/.config/nvim
+        mkdir ~/.config/nvim
+    fi
 
     ln -s ~/.dotfiles/wsl/.bashrc ~/.
     ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
@@ -47,6 +48,7 @@ fi
 }
 
 function setup_workspace_for_linux {
+
     echo [*] Setting up sym links ...
 
     mkdir ~/old_setup
@@ -66,19 +68,19 @@ function setup_workspace_for_linux {
 
 function main {
 
-if [ ! -d ~/.dotfiles ]
-then
-echo [!] Make sure to have .dotfiles in the home directory before running rise.sh!
-exit 1
-fi
+    if [ ! -d ~/.dotfiles ]
+    then
+        echo [!] Make sure to have .dotfiles in the home directory before running rise.sh!
+        exit 1
+    fi
     
-echo [!] SYSTEM UPDATING ...
+    echo [!] SYSTEM UPDATING ...
     sudo apt-get update -y > /dev/null && 
-echo [!] SYSTEM UPGRADING ... 
-sudo apt-get upgrade -y > /dev/null && 
-echo "[!] System updated and upgraded!"
+    echo [!] SYSTEM UPGRADING ... 
+    sudo apt-get upgrade -y > /dev/null && 
+    echo "[!] System updated and upgraded!"
 
-echo [!] INSTALLING DEFAULT PROGRAMS ...
+    echo [!] INSTALLING DEFAULT PROGRAMS ...
     sudo apt-get install $PROGRAMS
     if [ $? -ne 0 ]
     then
@@ -98,12 +100,12 @@ echo [!] INSTALLING DEFAULT PROGRAMS ...
     ln -s ~/.dotfiles/common/lua ~/.config/nvim/
 
     if [ ! -d ~/.tmux/plugins/tpm ]
-then
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    sudo pip install jedi 
-fi
+    then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        sudo pip install jedi 
+    fi
 
     check_os
 
