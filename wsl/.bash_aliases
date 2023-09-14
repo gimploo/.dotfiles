@@ -47,7 +47,7 @@ alias pip='cmd.exe /c pip'
 alias pipenv='cmd.exe /c pipenv'
 
 #my tools
-alias ease='/mnt/g/projects/ease/ease.sh'
+alias ease='/mnt/e/dev/projects/ease/ease.sh'
 function forge {
 
     if [ "$1" == "unix" ] 
@@ -59,7 +59,7 @@ function forge {
 
     if [ "$1" == "win" ] 
     then
-        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null || cp ~/Documents/projects/forge/build.bat .
+        wget https://raw.githubusercontent.com/gimploo/forge/main/build.bat 2> /dev/null && echo [!] FORGE WIN DOWNLOADED!
         return 0
     fi
 
