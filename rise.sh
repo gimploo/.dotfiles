@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm tldr clangd python3 python3-pip tree dos2unix"
+PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm tldr clangd python3 python3-pip tree dos2unix "
 
 function check_os {
 
@@ -37,11 +37,11 @@ function setup_workspace_for_wsl {
         mkdir ~/.config/nvim
     fi
 
+
     ln -s ~/.dotfiles/wsl/.bashrc ~/.
     ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
     ln -s ~/.dotfiles/wsl/.tmux.conf ~/.
     ln -s ~/.dotfiles/wsl/.gitconfig ~/.
-    ln -s ~/.dotfiles/wsl/init.vim ~/.config/nvim/
     ln -s ~/.dotfiles/wsl/syntax ~/.config/nvim/
     echo [!] All sym-links are setup!
 
@@ -58,7 +58,6 @@ function setup_workspace_for_linux {
     ln -s ~/.dotfiles/linux/.bash_aliases ~/.
     ln -s ~/.dotfiles/linux/.tmux.conf ~/.
     ln -s ~/.dotfiles/linux/.gitconfig ~/.
-    rm ~/.config/nvim/init.vim && ln -s ~/.dotfiles/linux/init.vim ~/.config/nvim/
     ln -s ~/.dotfiles/linux/syntax ~/.config/nvim/
     ln -s ~/.dotfiles/linux/audio-fix.sh ~/audio-fix.sh
     ln -s ~/.dotfiles/linux/run-on-startup.sh ~/run-on-startup.sh
@@ -82,19 +81,14 @@ function main {
 
     echo [!] INSTALLING DEFAULT PROGRAMS ...
     sudo apt-get install $PROGRAMS
+    sudo cp ~/.dotfiles/bin/nvim /usr/bin/
+
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
         exit 1
     else
         echo "[!] All programs are installed"
-    fi
-
-    # Latest neovim version
-    if [ ! -d ~/neovim ] 
-    then
-    cd ~ && git clone https://github.com/neovim/neovim
-    cd neovim && sudo make install || echo "[!] FALIED TO SETUP NEOVIM"
     fi
 
     if [ ! -d ~/.tmux/plugins/tpm ]
@@ -116,8 +110,9 @@ function main {
         setup_workspace_for_linux
     fi
 
-    # setup lua folder for neovim
+    # setup common folder for neovim
     ln -s ~/.dotfiles/common/lua ~/.config/nvim/
+    ln -s ~/.dotfiles/common/init.vim ~/.config/nvim/
 
     echo [!] Setup finished!
 
