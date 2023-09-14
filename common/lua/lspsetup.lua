@@ -1,14 +1,20 @@
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 --
 -- Native LSP Setup
 --
+local lspconfig = require('lspconfig')
 
-require 'lspconfig'.clangd.setup{
-    arguments = {"-std=c11"},
+lspconfig.clangd.setup{
+
+    cmd = { 'clangd-15', '--header-insertion=never'},
     capabilities = capabilities,
-    filetypes = {"c", "cpp"},
-    on_attach = function() 
+    filetypes = { "c", "cpp" },
+
+    on_attach = function(client) 
+        -----------------------------------------------------------
+        -- keymaps
+        -----------------------------------------------------------
         vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
         --vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
@@ -16,8 +22,22 @@ require 'lspconfig'.clangd.setup{
         vim.keymap.set("n", "g[", vim.diagnostic.goto_next, {buffer=0})
         vim.keymap.set("n", "g]", vim.diagnostic.goto_prev, {buffer=0})
         vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer = 0})
-    end
+
+    end,
+    init_options = {
+        clangdFileStatus = true,
+        usePlaceholders = true,
+        completeUnimported = true,
+        clangdResourceDir = "",
+        fallbackFlags = { 
+            "-std=c11", 
+            "-Wall",
+            "-Wno-missing-braces",
+            "-fno-exceptions"
+        },
+    },
 }
+
 
 --
 -- Auto complete

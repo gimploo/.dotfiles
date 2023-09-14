@@ -2,7 +2,6 @@ set exrc
 set nocompatible
 set encoding=utf-8
 set number
-syntax on
 set cursorline
 set t_Co=256
 set relativenumber
@@ -14,8 +13,8 @@ set nowrap
 set signcolumn=yes
 set colorcolumn=80
 
-filetype plugin on
-filetype indent on 
+syntax on
+filetype plugin indent on
 
 set tabstop=4
 set shiftwidth=4
@@ -56,10 +55,6 @@ endif
 
 " Access colors present in 256 colorspace
 let base16colorspace=256
-
-" Custom syntax highlight for C
-au Syntax c	source $VIMRUNTIME/syntax/c.vim
-let g:c_syntax_for_h = 1 " All header files are treated as only C files with this
 
 " Pluggins 
 call plug#begin('~/.config/nvim/plugged')
@@ -257,3 +252,4 @@ lua require('lspsetup')
 "lua require('telescope')
 "fzf.vim plugin
 nnoremap <leader>s :Files<CR>
+
