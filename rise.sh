@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm ppa-purge tldr clangd python3 pip tree"
+PROGRAMS="curl pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm tldr clangd python3 python3-pip tree dos2unix"
 
 function check_os {
 
@@ -19,9 +19,22 @@ function setup_workspace_for_wsl {
 
     echo [*] Setting up sym links ...
 
+if [ -d ~/old_setup ]
+then
+rm -rf ~/old_setup
+fi
     mkdir ~/old_setup
     mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
-    rm -rf ~/.config/nvim && mkdir ~/.config/nvim
+
+   
+if [ ! -d ~/.config ]
+then
+mkdir ~/.config
+mkdir ~/.config/nvim
+else
+rm -rf ~/.config/nvim
+mkdir ~/.config/nvim
+fi
 
     ln -s ~/.dotfiles/wsl/.bashrc ~/.
     ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
@@ -52,6 +65,12 @@ function setup_workspace_for_linux {
 }
 
 function main {
+
+if [ ! -d ~/.dotfiles ]
+then
+echo [!] Make sure to have .dotfiles in the home directory before running rise.sh!
+exit 1
+fi
     
 echo [!] SYSTEM UPDATING ...
     sudo apt-get update -y > /dev/null && 
@@ -60,7 +79,7 @@ sudo apt-get upgrade -y > /dev/null &&
 echo "[!] System updated and upgraded!"
 
 echo [!] INSTALLING DEFAULT PROGRAMS ...
-    sudo apt-get install $PROGRAMS > /dev/null
+    sudo apt-get install $PROGRAMS
     if [ $? -ne 0 ]
     then
         echo "[!] Error occured!"
