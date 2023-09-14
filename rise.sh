@@ -96,8 +96,6 @@ function main {
     cd ~ && git clone https://github.com/neovim/neovim
     cd neovim && sudo make install || echo "[!] FALIED TO SETUP NEOVIM"
     fi
-    # setup lua folder for neovim
-    ln -s ~/.dotfiles/common/lua ~/.config/nvim/
 
     if [ ! -d ~/.tmux/plugins/tpm ]
     then
@@ -117,6 +115,9 @@ function main {
     else
         setup_workspace_for_linux
     fi
+
+    # setup lua folder for neovim
+    ln -s ~/.dotfiles/common/lua ~/.config/nvim/
 
     echo [!] Setup finished!
 
