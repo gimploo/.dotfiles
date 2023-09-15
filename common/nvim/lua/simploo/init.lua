@@ -81,10 +81,17 @@ vim.call("plug#end")
 vim.keymap.set("n", "<leader>s", ":Files<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_create_autocmd({"FileType"}, {
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = { "*.vs", "*.fs" },
     callback = function ()
         vim.cmd [[set ft=glslx]]
+    end
+})
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+    pattern = { "*.h" },
+    callback = function ()
+        vim.cmd [[set ft=c]]
     end
 })
 
@@ -206,8 +213,8 @@ lsp.on_attach( function(client, bufnr)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set("n", "[g", function() vim.diagnostic.goto_next() end, opts)
+    vim.keymap.set("n", "]g", function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
@@ -218,26 +225,14 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
---[[
+
+local lspconfig = require('lspconfig')
+
 lspconfig.clangd.setup{
 
-    cmd = { 'clangd-15', '--header-insertion=never'},
+    cmd = { 'clangd', '--background-index'},
     capabilities = capabilities,
-    filetypes = { "c", "cpp" },
-
-    on_attach = function(client) 
-        -----------------------------------------------------------
-        -- keymaps
-        -----------------------------------------------------------
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
-        --vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
-        --vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0})
-        vim.keymap.set("n", "g[", vim.diagnostic.goto_next, {buffer=0})
-        vim.keymap.set("n", "g]", vim.diagnostic.goto_prev, {buffer=0})
-        vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, {buffer = 0})
-
-    end,
+    filetypes = { "c", "h" },
     init_options = {
         clangdFileStatus = true,
         usePlaceholders = true,
@@ -250,5 +245,5 @@ lspconfig.clangd.setup{
             "-fno-exceptions"
         },
     },
-}]]
+}
 
