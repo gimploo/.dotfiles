@@ -51,10 +51,9 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
     -- Themes
     Plug 'chriskempson/vim-tomorrow-theme'
 
-    Plug 'Eric-Song-Nop/vim-glslx'
-    Plug 'sakshamgupta05/vim-todo-highlight'
+    Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+
     Plug 'mbbill/undotree'
-    Plug 'scrooloose/nerdcommenter'
     Plug('suan/vim-instant-markdown', {['for'] = 'markdown'})
 
     Plug('junegunn/fzf', { ['do'] = 'fzf#install()' })
@@ -74,6 +73,8 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
     Plug 'L3MON4D3/LuaSnip'   
 
     Plug('VonHeikemen/lsp-zero.nvim', {['branch'] = 'v2.x'})
+
+    Plug('numToStr/Comment.nvim')
 
 vim.call("plug#end")
 
@@ -111,8 +112,6 @@ vim.keymap.set( "n", "<leader>d", ":bd<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>.",  ":bn<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>,",  ":bp<CR>", { noremap = true, silent = true } )
 
-vim.keymap.set("n", "<leader>/",  ":NERDCommenterToggle<CR>", { noremap = true, silent = true } )
-
 -- vimwiki
 vim.keymap.set("n", "<leader>md",  ":InstantMarkdownPreview<CR>", { noremap = true, silent = true } )
 --"markdown support
@@ -131,52 +130,74 @@ vim.keymap.set("n", "<leader>=",  ":vertical resize +5<CR>", { noremap = true, s
 vim.keymap.set("n", "<leader>-",  ":vertical resize -5<CR>", { noremap = true, silent = true } )
 
 vim.cmd [[
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#righ_alt_sep = '|'
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ''
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline#extensions#tabline#right_sep = ''
+    let g:airline#extensions#tabline#righ_alt_sep = '|'
+    let g:airline#extensions#whitespace#enabled = 0
+    let g:airline#extensions#tabline#formatter = 'unique_tail'
+    let g:airline_powerline_fonts = 1
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
 
-" unicode symbols
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.colnr = ':'
-let g:airline_symbols.colnr = ':'
-let g:airline_symbols.crypt = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.linenr = ' :'
-let g:airline_symbols.linenr = ' :'
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.paste = ''
-let g:airline_symbols.paste = ''
-let g:airline_symbols.paste = ''
-let g:airline_symbols.spell = ''
-let g:airline_symbols.notexists = ''
-let g:airline_symbols.whitespace = ''
+    " unicode symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_symbols.colnr = ':'
+    let g:airline_symbols.colnr = ':'
+    let g:airline_symbols.crypt = ''
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.linenr = ' :'
+    let g:airline_symbols.linenr = ' :'
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.paste = ''
+    let g:airline_symbols.paste = ''
+    let g:airline_symbols.paste = ''
+    let g:airline_symbols.spell = ''
+    let g:airline_symbols.notexists = ''
+    let g:airline_symbols.whitespace = ''
 
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.colnr = ' :'
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ' :'
-let g:airline_symbols.maxlinenr = ' '
-let g:airline_symbols.dirty=''
+    " powerline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.colnr = ' :'
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = ' :'
+    let g:airline_symbols.maxlinenr = ' '
+    let g:airline_symbols.dirty=''
 ]]
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "bash", "javascript" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 
 local lsp = require('lsp-zero')
@@ -247,3 +268,46 @@ lspconfig.clangd.setup{
     },
 }
 
+require('Comment').setup({
+     ---Add a space b/w comment and the line
+    padding = true,
+    ---Whether the cursor should stay at its position
+    sticky = true,
+    ---Lines to be ignored while (un)comment
+    ignore = nil,
+    ---LHS of toggle mappings in NORMAL mode
+    toggler = {
+        ---Line-comment toggle keymap
+        line = 'gcc',
+        ---Block-comment toggle keymap
+        block = 'gbc',
+    },
+    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+    opleader = {
+        ---Line-comment keymap
+        line = 'gc',
+        ---Block-comment keymap
+        block = 'gb',
+    },
+    ---LHS of extra mappings
+    extra = {
+        ---Add comment on the line above
+        above = 'gcO',
+        ---Add comment on the line below
+        below = 'gco',
+        ---Add comment at the end of line
+        eol = 'gcA',
+    },
+    ---Enable keybindings
+    ---NOTE: If given `false` then the plugin won't create any mappings
+    mappings = {
+        ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+        basic = true,
+        ---Extra mapping; `gco`, `gcO`, `gcA`
+        extra = true,
+    },
+    ---Function to call before (un)comment
+    pre_hook = nil,
+    ---Function to call after (un)comment
+    post_hook = nil,
+})
