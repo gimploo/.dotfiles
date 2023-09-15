@@ -46,7 +46,7 @@ vim.opt.shortmess:append { c = true }
 
 -- Plugins
 local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/lua/simploo/plugged')
+vim.call('plug#begin', '~/.config/nvim_installed_plugins')
 
     -- Themes
     Plug 'chriskempson/vim-tomorrow-theme'
