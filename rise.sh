@@ -15,53 +15,69 @@ function check_os {
     fi
 }
 
-function setup_workspace_for_wsl {
+function setup_neovim {
 
-    echo [*] Setting up sym links ...
-
-    if [ -d ~/old_setup ]
+    if [ ! -d ~/.config/nvim ]
     then
-        rm -rf ~/old_setup
+        cd ~ 
+        && echo [!] CLONING LATEST VERSION OF NEOVIM ... 
+        && git clone https://github.com/neovim/neovim > /dev/null
+        && echo [!] INSTALLING THE LATEST BUILD OF NEOVIM ...
+        && sudo make install
+        && echo [!] LATEST BUILD OF NEOVIM IS INSTALLED !!
     fi
 
-    mkdir ~/old_setup
-    mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
-
-   
+    # setup config files
     if [ ! -d ~/.config ]
     then
         mkdir ~/.config
-        mkdir ~/.config/nvim
     else
         rm -rf ~/.config/nvim
-        mkdir ~/.config/nvim
     fi
 
-
-    ln -s ~/.dotfiles/wsl/.bashrc ~/.
-    ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
-    ln -s ~/.dotfiles/wsl/.tmux.conf ~/.
-    ln -s ~/.dotfiles/wsl/.gitconfig ~/.
-    ln -s ~/.dotfiles/wsl/syntax ~/.config/nvim/
-    echo [!] All sym-links are setup!
-
+    ln -s ~/.dotfiles/common/nvim ~/.config
 }
 
-function setup_workspace_for_linux {
+function setup_tmux {
+
+    if [ ! -d ~/.tmux/plugins/tpm ]
+    then
+        cd ~ 
+        && echo [!] CLONING LATEST VERSION OF TMUX ... 
+        && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        && echo [!] INSTALLING THE LATEST BUILD OF TMUX ...
+        && sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        sudo pip install jedi 
+        && echo [!] LATEST BUILD OF TMUX IS INSTALLED !!
+    fi
+
+    ln -s ~/.dotfiles/common/.tmux.conf ~/.
+}
+
+function setup_symlinks {
 
     echo [*] Setting up sym links ...
+    if [ "$OS" == "WINDOWS" ]
+    then
+        echo [!] WSL recognized!
+        echo [*] Setting up workspace for wsl ...
 
-    mkdir ~/old_setup
-    mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
+        if [ -d ~/old_setup ]
+        then
+            rm -rf ~/old_setup
+        fi
 
-    ln -s ~/.dotfiles/linux/.bashrc ~/.
-    ln -s ~/.dotfiles/linux/.bash_aliases ~/.
-    ln -s ~/.dotfiles/linux/.tmux.conf ~/.
-    ln -s ~/.dotfiles/linux/.gitconfig ~/.
-    ln -s ~/.dotfiles/linux/syntax ~/.config/nvim/
-    ln -s ~/.dotfiles/linux/audio-fix.sh ~/audio-fix.sh
-    ln -s ~/.dotfiles/linux/run-on-startup.sh ~/run-on-startup.sh
+        mkdir ~/old_setup
+        mv ~/.bashrc ~/.bash_aliases ~/.tmux.conf ~/.gitconfig ~/old_setup
 
+        ln -s ~/.dotfiles/wsl/.bashrc ~/.
+        ln -s ~/.dotfiles/wsl/.bash_aliases ~/.
+        ln -s ~/.dotfiles/wsl/.gitconfig ~/.
+    else
+        ln -s ~/.dotfiles/linux/audio-fix.sh ~/audio-fix.sh
+        ln -s ~/.dotfiles/linux/run-on-startup.sh ~/run-on-startup.sh
+    fi
     echo [!] All sym-links are setup!
 }
 
@@ -72,6 +88,8 @@ function main {
         echo [!] Make sure to have .dotfiles in the home directory before running rise.sh!
         exit 1
     fi
+
+    check_os
     
     echo [!] SYSTEM UPDATING ...
     sudo apt-get update -y > /dev/null && 
@@ -81,7 +99,6 @@ function main {
 
     echo [!] INSTALLING DEFAULT PROGRAMS ...
     sudo apt-get install $PROGRAMS
-    sudo cp ~/.dotfiles/bin/nvim /usr/bin/
 
     if [ $? -ne 0 ]
     then
@@ -91,28 +108,9 @@ function main {
         echo "[!] All programs are installed"
     fi
 
-    if [ ! -d ~/.tmux/plugins/tpm ]
-    then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        sudo pip install jedi 
-    fi
-
-    check_os
-
-    if [ "$OS" == "WINDOWS" ]
-    then
-        echo [!] WSL recognized!
-        echo [*] Setting up workspace for wsl ...
-        setup_workspace_for_wsl
-    else
-        setup_workspace_for_linux
-    fi
-
-    # setup common folder for neovim
-    ln -s ~/.dotfiles/common/lua ~/.config/nvim/
-    ln -s ~/.dotfiles/common/init.vim ~/.config/nvim/
+    setup_neovim
+    setup_tmux
+    setup_symlinks
 
     echo [!] Setup finished!
 
