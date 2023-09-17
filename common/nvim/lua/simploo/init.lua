@@ -74,7 +74,7 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
 
     Plug('VonHeikemen/lsp-zero.nvim', {['branch'] = 'v2.x'})
 
-    Plug('numToStr/Comment.nvim')
+    Plug'numToStr/Comment.nvim'
 
 vim.call("plug#end")
 
@@ -98,6 +98,21 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
 
 vim.cmd.colorscheme("Tomorrow-Night-Bright")
 
+local function dim_inactive_windows()
+    vim.api.nvim_create_autocmd("WinLeave", {
+        callback = function ()
+            vim.opt.cursorline = false
+        end
+    })
+    vim.api.nvim_create_autocmd("WinEnter", {
+        callback = function ()
+            vim.opt.cursorline = true
+        end
+    })
+    vim.cmd[[ hi NormalNC ctermbg=black ]]
+end
+
+
 
 -- Remaped the jumps bw splited windows 
 vim.keymap.set("n", "<leader>h",  ":wincmd h<CR>", { noremap = true, silent = true } )
@@ -106,7 +121,11 @@ vim.keymap.set("n", "<leader>k",  ":wincmd k<CR>", { noremap = true, silent = tr
 vim.keymap.set("n", "<leader>l",  ":wincmd l<CR>", { noremap = true, silent = true } )
 
 -- Delete a buffer without closing the split window
-vim.keymap.set( "n", "<leader>d", ":bd<CR>", { noremap = true, silent = true } )
+vim.keymap.set("n", "<leader>d",":bp|bd # <CR>",{ noremap = true, silent = true } )
+
+-- Vertical Split window
+vim.keymap.set("n", "<leader>/",":vsp | wincmd l<CR>",{ noremap = true, silent = true } )
+
 
 -- Jumping between buffers
 vim.keymap.set("n", "<leader>.",  ":bn<CR>", { noremap = true, silent = true } )
@@ -136,7 +155,7 @@ vim.cmd [[
     let g:airline#extensions#tabline#right_sep = ''
     let g:airline#extensions#tabline#righ_alt_sep = '|'
     let g:airline#extensions#whitespace#enabled = 0
-    let g:airline#extensions#tabline#formatter = 'unique_tail'
+    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
     let g:airline_powerline_fonts = 1
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
@@ -198,6 +217,7 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
 
 
 local lsp = require('lsp-zero')
@@ -290,6 +310,7 @@ require('Comment').setup({
         block = 'gb',
     },
     ---LHS of extra mappings
+    ---DISABLED
     extra = {
         ---Add comment on the line above
         above = 'gcO',
@@ -304,10 +325,12 @@ require('Comment').setup({
         ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
         basic = true,
         ---Extra mapping; `gco`, `gcO`, `gcA`
-        extra = true,
+        extra = false,
     },
     ---Function to call before (un)comment
     pre_hook = nil,
     ---Function to call after (un)comment
     post_hook = nil,
 })
+
+dim_inactive_windows()
