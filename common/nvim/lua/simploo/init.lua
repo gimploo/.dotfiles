@@ -271,7 +271,7 @@ local lspconfig = require('lspconfig')
 
 lspconfig.clangd.setup{
 
-    cmd = { 'clangd', '--background-index'},
+    cmd = { 'clangd', '--background-index', '--completion-style=detailed', '--header-insertion=never'},
     capabilities = capabilities,
     filetypes = { "c", "h" },
     init_options = {
