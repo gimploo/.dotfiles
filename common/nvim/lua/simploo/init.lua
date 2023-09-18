@@ -78,6 +78,8 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
 
 vim.call("plug#end")
 
+-- remapping ctrl v to <leader> v since wsl2 has it binded for paste
+vim.keymap.set("n", "<leader>v", "<C-v>", { noremap = true, silent = true }) 
 
 vim.keymap.set("n", "<leader>s", ":Files<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { noremap = true, silent = true })
@@ -256,9 +258,9 @@ lsp.on_attach( function(client, bufnr)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set("n", "[g", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]g", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("n", "<leader>rf", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
