@@ -54,7 +54,6 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
     Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 
     Plug 'mbbill/undotree'
-    Plug('suan/vim-instant-markdown', {['for'] = 'markdown'})
 
     Plug('junegunn/fzf', { ['do'] = 'fzf#install()' })
     Plug 'junegunn/fzf.vim'
@@ -132,16 +131,6 @@ vim.keymap.set("n", "<leader>/",":vsp | wincmd l<CR>",{ noremap = true, silent =
 -- Jumping between buffers
 vim.keymap.set("n", "<leader>.",  ":bn<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>,",  ":bp<CR>", { noremap = true, silent = true } )
-
--- vimwiki
-vim.keymap.set("n", "<leader>md",  ":InstantMarkdownPreview<CR>", { noremap = true, silent = true } )
---"markdown support
-vim.g.vimwiki_ext2syntax = {
-    ['.md'] = 'markdown',
-    ['.markdown'] = 'markdown',
-    ['.mdown'] = 'markdown' 
-} 
-vim.g.instant_markdown_autostart = 0 -- disable autostart 
 
 -- Undotree
 vim.keymap.set("n", "<leader>u",  ":UndotreeShow<CR>", { noremap = true, silent = true } )
