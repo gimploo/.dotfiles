@@ -13,6 +13,7 @@ win2unix() { tr -d '\15\32' < $1 > $2 && echo "Successfully created $2 file!" ||
 alias wordpad='/mnt/c/Program\ Files/Windows\ NT/Accessories/wordpad.exe'
 alias love='love.exe'
 alias cmd='cmd.exe'
+alias powershell='powershell.exe'
 alias cls='clear'
 alias chrome='chrome.exe'
 alias spotify='cmd.exe /c spotify'
