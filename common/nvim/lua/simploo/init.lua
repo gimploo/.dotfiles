@@ -55,11 +55,11 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
 
     Plug 'mbbill/undotree'
 
-    Plug('junegunn/fzf', { ['do'] = 'fzf#install()' })
-    Plug 'junegunn/fzf.vim'
-
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+
+    Plug 'nvim-lua/plenary.nvim'
+    Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.3' })
 
     -- LSP Support
     Plug 'neovim/nvim-lspconfig'      
@@ -113,7 +113,12 @@ local function dim_inactive_windows()
     vim.cmd[[ hi NormalNC ctermbg=black ]]
 end
 
-
+-- telescope bindings
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- Remaped the jumps bw splited windows 
 vim.keymap.set("n", "<leader>h",  ":wincmd h<CR>", { noremap = true, silent = true } )
@@ -323,5 +328,6 @@ require('Comment').setup({
     ---Function to call after (un)comment
     post_hook = nil,
 })
+
 
 dim_inactive_windows()
