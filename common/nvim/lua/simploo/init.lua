@@ -39,7 +39,7 @@ vim.opt.cmdheight = 2
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
-vim.opt.updatetime = 300
+vim.opt.updatetime = 100
 
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append { c = true }
@@ -55,8 +55,8 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
 
     Plug 'mbbill/undotree'
 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'nvim-lualine/lualine.nvim'
+    Plug 'nvim-tree/nvim-web-devicons'
 
     Plug 'nvim-lua/plenary.nvim'
     Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.3' })
@@ -143,54 +143,6 @@ vim.keymap.set("n", "<leader>u",  ":UndotreeShow<CR>", { noremap = true, silent 
 -- Resizing window pane 
 vim.keymap.set("n", "<leader>=",  ":vertical resize +5<CR>", { noremap = true, silent = true } )
 vim.keymap.set("n", "<leader>-",  ":vertical resize -5<CR>", { noremap = true, silent = true } )
-
-vim.cmd [[
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline#extensions#tabline#right_sep = ''
-    let g:airline#extensions#tabline#righ_alt_sep = '|'
-    let g:airline#extensions#whitespace#enabled = 0
-    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-    let g:airline_powerline_fonts = 1
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
-
-    " unicode symbols
-    let g:airline_left_sep = ''
-    let g:airline_left_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_symbols.colnr = ':'
-    let g:airline_symbols.colnr = ':'
-    let g:airline_symbols.crypt = ''
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.linenr = ' :'
-    let g:airline_symbols.linenr = ' :'
-    let g:airline_symbols.linenr = ''
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.paste = ''
-    let g:airline_symbols.paste = ''
-    let g:airline_symbols.paste = ''
-    let g:airline_symbols.spell = ''
-    let g:airline_symbols.notexists = ''
-    let g:airline_symbols.whitespace = ''
-
-    " powerline symbols
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.colnr = ' :'
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = ' :'
-    let g:airline_symbols.maxlinenr = ' '
-    let g:airline_symbols.dirty=''
-]]
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -329,5 +281,65 @@ require('Comment').setup({
     post_hook = nil,
 })
 
-
 dim_inactive_windows()
+
+require('lualine').setup({
+    options = {
+    icons_enabled = true,
+    theme = 'ayu_dark',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+    --in ms
+      statusline = 250000,
+      tabline = 250000,
+      winbar = 250000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diagnostics'},
+    lualine_c = {{
+        'filename',
+        path = 2,
+    }},
+    lualine_x = {'diff'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {
+      lualine_a = {'buffers'},
+      lualine_b = {'tabs'},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {}
+
+  },
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+})
+
+vim.keymap.set("n", "<leader>1", ":LualineBuffersJump 1<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>2", ":LualineBuffersJump 2<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>3", ":LualineBuffersJump 3<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>4", ":LualineBuffersJump 4<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>5", ":LualineBuffersJump 5<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>6", ":LualineBuffersJump 6<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>p", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
