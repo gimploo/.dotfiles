@@ -39,7 +39,7 @@ vim.opt.cmdheight = 2
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
-vim.opt.updatetime = 100
+vim.opt.updatetime = 4000
 
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append { c = true }
@@ -219,7 +219,7 @@ local lspconfig = require('lspconfig')
 
 lspconfig.clangd.setup{
 
-    cmd = { 'clangd', '--background-index', '--completion-style=detailed', '--header-insertion=never'},
+    cmd = { 'clangd-15', '--background-index', '--completion-style=detailed', '--header-insertion=never'},
     capabilities = capabilities,
     filetypes = { "c", "h" },
     init_options = {
@@ -342,4 +342,4 @@ vim.keymap.set("n", "<leader>3", ":LualineBuffersJump 3<CR>", { noremap = true, 
 vim.keymap.set("n", "<leader>4", ":LualineBuffersJump 4<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>5", ":LualineBuffersJump 5<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>6", ":LualineBuffersJump 6<CR>", { noremap = true, silent = true }) 
-vim.keymap.set("n", "<leader>p", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
+vim.keymap.set("n", "<leader>pb", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
