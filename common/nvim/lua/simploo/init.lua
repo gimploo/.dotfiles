@@ -281,7 +281,6 @@ require('Comment').setup({
     post_hook = nil,
 })
 
-dim_inactive_windows()
 
 require('lualine').setup({
     options = {
@@ -317,8 +316,8 @@ require('lualine').setup({
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = {},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {}
   },
@@ -343,3 +342,5 @@ vim.keymap.set("n", "<leader>4", ":LualineBuffersJump 4<CR>", { noremap = true, 
 vim.keymap.set("n", "<leader>5", ":LualineBuffersJump 5<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>6", ":LualineBuffersJump 6<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>pb", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
+
+dim_inactive_windows()
