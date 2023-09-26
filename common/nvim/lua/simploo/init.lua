@@ -309,7 +309,7 @@ require('lualine').setup({
         'filename',
         path = 2,
     }},
-    lualine_x = {'diff'},
+    lualine_x = {'filetype','diff'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
