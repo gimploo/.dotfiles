@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROGRAMS="htop curl wget pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm tldr clangd python3 python3-pip tree dos2unix "
+PROGRAMS="htop curl wget pkg-config gcc g++ cmake make tmux unzip gettext libtool-bin npm tldr clangd python3 python3-pip tree dos2unix ripgrep"
 
 function check_os {
 
