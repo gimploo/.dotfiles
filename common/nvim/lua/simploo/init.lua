@@ -110,7 +110,7 @@ local function dim_inactive_windows()
             vim.opt.cursorline = true
         end
     })
-    vim.cmd[[ hi NormalNC ctermbg=233 ]]
+    vim.cmd[[ hi NormalNC ctermbg=232 ]]
 end
 
 -- telescope bindings
