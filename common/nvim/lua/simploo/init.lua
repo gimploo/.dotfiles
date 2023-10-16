@@ -110,12 +110,18 @@ local function dim_inactive_windows()
             vim.opt.cursorline = true
         end
     })
-    vim.cmd[[ hi NormalNC ctermbg=black ]]
+    vim.cmd[[ hi NormalNC ctermbg=233 ]]
 end
 
 -- telescope bindings
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+
+vim.keymap.set('n', '<leader>ff', function() 
+    builtin.find_files({
+        follow = true
+    })
+end, { silent = false })
+
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
@@ -294,7 +300,7 @@ require('lualine').setup({
     },
     ignore_focus = {},
     always_divide_middle = true,
-    globalstatus = false,
+    globalstatus = true,
     refresh = {
     --in ms
       statusline = 250000,
@@ -342,5 +348,7 @@ vim.keymap.set("n", "<leader>4", ":LualineBuffersJump 4<CR>", { noremap = true, 
 vim.keymap.set("n", "<leader>5", ":LualineBuffersJump 5<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>6", ":LualineBuffersJump 6<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>pb", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
+
+
 
 dim_inactive_windows()
