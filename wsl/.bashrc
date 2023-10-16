@@ -116,31 +116,21 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Rust 
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # New prompt
 export PS1='\[\033[01;32m\]\u \[\033[01;34m\]\W\[\033[00m\] $ '
 
 # Disable ctrl-s and ctrl-q
 stty -ixon 
 
-# including .dircolors file 
-[[ -e $HOME/.dircolors ]] && eval "`dircolors --sh $HOME/.dircolors`"
-
 # Start tmux as defualt
-#if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-        #tmux attach -t default || tmux new -s default
-#fi
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+fi
 
 reset-cursor() {
   printf '\e[3 q' # resets the cursor when exiting out of vim
 }
 export PS1="$(reset-cursor)$PS1"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # setup neovim (latest build)
 export PATH="~/neovim/build/bin:$PATH"
