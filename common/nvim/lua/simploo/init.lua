@@ -184,7 +184,9 @@ lsp.ensure_installed({
     'lua_ls',
     'bashls',
     'clangd',
-    'tailwindcss'
+    'tailwindcss',
+    'csharp_ls',
+    'pylsp'
 })
 
 local cmp = require('cmp')
