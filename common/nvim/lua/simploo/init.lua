@@ -52,6 +52,7 @@ vim.call('plug#begin', '~/.config/nvim_installed_plugins')
     Plug 'chriskempson/vim-tomorrow-theme'
 
     Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+    Plug 'nvim-treesitter/nvim-treesitter-context'
 
     Plug 'mbbill/undotree'
 
@@ -185,8 +186,6 @@ lsp.ensure_installed({
     'bashls',
     'clangd',
     'tailwindcss',
-    'csharp_ls',
-    'pylsp'
 })
 
 local cmp = require('cmp')
@@ -350,7 +349,6 @@ vim.keymap.set("n", "<leader>4", ":LualineBuffersJump 4<CR>", { noremap = true, 
 vim.keymap.set("n", "<leader>5", ":LualineBuffersJump 5<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>6", ":LualineBuffersJump 6<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "<leader>pb", ":LualineBuffersJump $<CR>", { noremap = true, silent = true }) 
-
 
 
 dim_inactive_windows()
