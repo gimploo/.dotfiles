@@ -759,7 +759,13 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        --NOTE: overwrote this as a work around fix for Tab to randomly jump to different lines during insert mode
+        preset = 'none',
+        -- Now Tab will behave normally (fallback) unless you 
+        -- explicitly tell it to do something else here.
+        ['<C-y>'] = { 'select_and_accept' },
+        ['<C-n>'] = { 'select_next', 'fallback' },
+        ['<C-p>'] = { 'select_prev', 'fallback' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
