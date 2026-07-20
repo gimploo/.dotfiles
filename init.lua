@@ -841,7 +841,16 @@ require('lazy').setup({
 			options = {
 				always_show_bufferline = true,
 			},
-		},
+      highlights = {
+        buffer_selected = {
+          bold = true,
+          italic = false,
+        },
+        indicator_selected = {
+          fg = "#fb4934", -- Accent color (Gruvbox red)
+        },
+      },
+		}
 	},
 	{ 
 		"nvim-focus/focus.nvim", 
@@ -990,6 +999,12 @@ vim.keymap.set('n', '<leader>gr',
   end, 
   { buffer = buf, desc = '[G]oto [R]eferences' }
 )
+
+vim.filetype.add({
+    extension = {
+        md = "markdown",
+    },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

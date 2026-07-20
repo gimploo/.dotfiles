@@ -9,6 +9,7 @@ local config = wezterm.config_builder()
 -- For example, changing the color scheme:
 
 local config = {
+	default_cwd = "e:/dev",
 	audible_bell = "Disabled",
 	check_for_updates = false,
 	default_prog = { "pwsh.exe", "--NoLogo" },
