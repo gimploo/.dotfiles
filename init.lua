@@ -836,13 +836,24 @@ require('lazy').setup({
   { 'folke/todo-comments.nvim',  event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        always_show_bufferline = true,
-      },
-    },
-  },
+		"akinsho/bufferline.nvim",
+		opts = {
+			options = {
+				always_show_bufferline = true,
+			},
+		},
+	},
+	{ 
+		"nvim-focus/focus.nvim", 
+		version = "*", 
+		opts = {
+			-- focus.nvim options go here
+			ui = {
+				cursorline = true,
+				signcolumn = true,
+			}
+		}
+	},
 
   { -- Collection of various small independent plugins/modules
     'nvim-mini/mini.nvim',
