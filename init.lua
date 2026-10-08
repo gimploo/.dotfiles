@@ -968,7 +968,7 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.wrap = false
 
 vim.keymap.set("n", "pv", ":Explore<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>d", ":bd<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>d", ":bp | bd #", { noremap = true, silent = true })
 
 -- Move to left pane
 vim.api.nvim_set_keymap("n", "<leader>h", "<C-w>h", { noremap = true, silent = true })
